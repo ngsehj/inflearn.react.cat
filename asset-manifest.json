@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/inflearn.react.cat/static/css/main.ab607829.css",
+    "main.js": "/inflearn.react.cat/static/js/main.5d80741f.js",
+    "index.html": "/inflearn.react.cat/index.html",
+    "main.ab607829.css.map": "/inflearn.react.cat/static/css/main.ab607829.css.map",
+    "main.5d80741f.js.map": "/inflearn.react.cat/static/js/main.5d80741f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ab607829.css",
+    "static/js/main.5d80741f.js"
+  ]
+}
