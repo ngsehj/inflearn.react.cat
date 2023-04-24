@@ -1,0 +1,22 @@
+body {
+  text-align: center;
+}
+
+.main-card img {
+  width: 300px;
+}
+
+.main-card button {
+  position: relative;
+  left: -45px;
+  bottom: 15px;
+}
+
+.favorites {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 0;
+}
