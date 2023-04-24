@@ -28,7 +28,8 @@ const Form = ({ updateMainCat }) => {
     const useValue = e.target.value;
 
     if( includeHangle(useValue) ) {
-      setErrorMessage("한글은 입력할 수 없습니다.")
+      setErrorMessage("한글은 입력할 수 없습니다.");
+      return;
     } 
     setValue(useValue.toUpperCase());
   }
