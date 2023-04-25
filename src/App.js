@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 const jsonLocalStorage = {
@@ -9,6 +9,13 @@ const jsonLocalStorage = {
     return JSON.parse(localStorage.getItem(key));
   }
 }
+
+const fetchCat = async (text) => {
+  const OPEN_API_DOMAIN = "https://cataas.com";
+  const response = await fetch(`${OPEN_API_DOMAIN}/cat/says/${text}?json=true`);
+  const responseJson = await response.json();
+  return `${OPEN_API_DOMAIN}/${responseJson.url}`;
+};
 
 const Title = (props) => {
   return (
@@ -42,7 +49,7 @@ const Form = ({ updateMainCat }) => {
       setErrorMessage("빈 값으로 만들 수 없습니다.");
       return;
     }
-    updateMainCat();
+    updateMainCat(value);
   }
 
   return (
@@ -60,16 +67,22 @@ const Form = ({ updateMainCat }) => {
   );
 }
 
-const MainCard = ({ img, onHeartClick }) => {
+const MainCard = ({ img, onHeartClick, alreadyFavorite }) => {
   return (
     <div className="main-card">
       <img src={img} alt="고양이" />
-      <button onClick={onHeartClick}>🤍</button>
+      <button onClick={onHeartClick}>
+        {alreadyFavorite ? "❤️" : " 🤍"}
+      </button>
     </div>
   )
 }
 
 const Favorites = ({ favorites }) => {
+  if(favorites.length === 0) {
+    return <div>사진 위 하트를 눌러 고양이 사진을 저장해봐요.</div>;
+  }
+  
   return (
     <ul className="favorites">
       {favorites.map((item, idx) => (
@@ -86,19 +99,24 @@ const CatItem = ({ img }) => {
 }
 
 function App() {
-  const CAT1 = "https://download.hiclass.net/7e60/8460/9c60/c860/044af483-e1b5-4972-9d66-f734312bdeef.jpg";
-  const CAT2 = "https://download.hiclass.net/7e60/8460/a260/e160/6dea0d28-da81-48e4-a9e7-d39584ef6e03.jpg";
-  const CAT3 = "https://download.hiclass.net/7e60/8460/a260/af60/77477a4c-f807-4dd7-b9d0-2c7dde2414c3.jpg";
-
   const [count, setCount] = useState(jsonLocalStorage.getItem("count"));
-  const [mainCat, setMainCat] = useState(CAT1);
+  const [mainCat, setMainCat] = useState();
   const [favorites, setFavorites] = useState(jsonLocalStorage.getItem("favorites") || []); // falsy
+  
+  useEffect(()=>{
+    async function setInitialCat () {
+      const helloCat = await fetchCat("hello");
+      setMainCat(helloCat);
+    }
+    setInitialCat();
+  }, []);
 
-  const updateMainCat = () => {
-    setMainCat(CAT3);
+  async function updateMainCat (value) {
+    const newCat = await fetchCat(value);
+    setMainCat(newCat);
+    
     const nextCount = count + 1;
     setCount(nextCount);
-    
     jsonLocalStorage.setItem("count", nextCount);
   }
   
@@ -108,11 +126,13 @@ function App() {
     jsonLocalStorage.setItem("favorites", nextFavorites);
   }
 
+  const alreadyFavorite = favorites.includes(mainCat);
+
   return (
     <div className="App">
       <Title>{count}번째 고양이 가라사대</Title>
       <Form updateMainCat={updateMainCat} />
-      <MainCard img={mainCat} onHeartClick={handleHeartClick} />
+      <MainCard img={mainCat} onHeartClick={handleHeartClick} alreadyFavorite={alreadyFavorite} />
       <Favorites favorites={favorites} />
     </div>
   );
