@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/inflearn.react.cat/static/css/main.ab607829.css",
-    "main.js": "/inflearn.react.cat/static/js/main.2d82b8ba.js",
+    "main.css": "/inflearn.react.cat/static/css/main.783ceff9.css",
+    "main.js": "/inflearn.react.cat/static/js/main.a6777866.js",
     "index.html": "/inflearn.react.cat/index.html",
-    "main.ab607829.css.map": "/inflearn.react.cat/static/css/main.ab607829.css.map",
-    "main.2d82b8ba.js.map": "/inflearn.react.cat/static/js/main.2d82b8ba.js.map"
+    "main.783ceff9.css.map": "/inflearn.react.cat/static/css/main.783ceff9.css.map",
+    "main.a6777866.js.map": "/inflearn.react.cat/static/js/main.a6777866.js.map"
   },
   "entrypoints": [
-    "static/css/main.ab607829.css",
-    "static/js/main.2d82b8ba.js"
+    "static/css/main.783ceff9.css",
+    "static/js/main.a6777866.js"
   ]
 }
